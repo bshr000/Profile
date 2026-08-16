@@ -1,0 +1,150 @@
+:root {
+    color-scheme: light;
+
+    /* Color system */
+    --color-canvas: #f7f8fa;
+    --color-surface: #ffffff;
+    --color-surface-subtle: #f0f2f5;
+    --color-text-primary: #14161a;
+    --color-text-secondary: #5d6470;
+    --color-text-tertiary: #858c98;
+    --color-border: rgba(20, 22, 26, .1);
+    --color-border-strong: rgba(20, 22, 26, .18);
+    --color-accent: #3157d5;
+    --color-accent-soft: #e8edff;
+    --color-danger: #b42318;
+    --color-success: #237a57;
+    --color-nav: rgba(247, 248, 250, .92);
+
+    /* Delivered by next/font in app/layout.tsx. */
+    --font-sans: var(--font-geist-sans, system-ui), var(--font-noto-sans-sc, "Noto Sans SC"), "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+    --font-mono: var(--font-geist-mono, "SFMono-Regular"), "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+
+    --font-weight-regular: 400;
+    --font-weight-medium: 500;
+    --font-weight-semibold: 600;
+
+    --text-display: clamp(3.5rem, 7vw, 6rem);
+    --text-h1: clamp(2.5rem, 5vw, 4.5rem);
+    --text-h2: clamp(2rem, 3.5vw, 3rem);
+    --text-h3: clamp(1.25rem, 2vw, 1.5rem);
+    --text-lead: clamp(1.125rem, 1.5vw, 1.25rem);
+    --text-body: 1rem;
+    --text-small: .875rem;
+    --text-meta: .75rem;
+    --text-code: .8125rem;
+
+    --leading-display: 1.02;
+    --leading-h1: 1.06;
+    --leading-h2: 1.14;
+    --leading-h3: 1.25;
+    --leading-lead: 1.55;
+    --leading-body: 1.7;
+    --leading-small: 1.55;
+    --leading-meta: 1.4;
+    --leading-code: 1.6;
+
+    --tracking-display: -.045em;
+    --tracking-heading: -.025em;
+    --tracking-meta: .04em;
+
+    /* Four-pixel spacing scale */
+    --space-1: .25rem;
+    --space-2: .5rem;
+    --space-3: .75rem;
+    --space-4: 1rem;
+    --space-5: 1.25rem;
+    --space-6: 1.5rem;
+    --space-8: 2rem;
+    --space-10: 2.5rem;
+    --space-12: 3rem;
+    --space-16: 4rem;
+    --space-20: 5rem;
+    --space-24: 6rem;
+    --space-28: 7rem;
+    --space-32: 8rem;
+
+    /* Shape, borders, and elevation */
+    --radius-control: .375rem;
+    --radius-code: .5rem;
+    --radius-surface: .625rem;
+    --radius-pill: 999px;
+    --border-width: 1px;
+    --border-default: var(--border-width) solid var(--color-border);
+    --border-strong: var(--border-width) solid var(--color-border-strong);
+    --shadow-overlay: 0 1rem 3rem rgba(22, 29, 45, .1);
+
+    /* Layout */
+    --layout-max: 80rem;
+    --layout-content: 60rem;
+    --layout-reading: 45rem;
+    --layout-gutter: 1.25rem;
+    --grid-gap: var(--space-6);
+    --section-space-start: var(--space-16);
+    --section-space-end: var(--space-20);
+    --nav-height: 4rem;
+
+    /* Motion and layers */
+    --duration-fast: 160ms;
+    --duration-base: 220ms;
+    --ease-standard: cubic-bezier(.16, 1, .3, 1);
+    --z-base: 0;
+    --z-sticky: 30;
+    --z-overlay: 60;
+
+    /* Compatibility aliases for components awaiting page migration. */
+    --bg: var(--color-canvas);
+    --surface: var(--color-surface);
+    --surface-subtle: var(--color-surface-subtle);
+    --text: var(--color-text-primary);
+    --muted: var(--color-text-secondary);
+    --muted-subtle: var(--color-text-tertiary);
+    --line: var(--color-border);
+    --line-strong: var(--color-border-strong);
+    --accent: var(--color-accent);
+    --accent-soft: var(--color-accent-soft);
+    --nav: var(--color-nav);
+    --sans: var(--font-sans);
+    --serif: var(--font-sans);
+}
+
+html[data-theme="dark"] {
+    color-scheme: dark;
+    --color-canvas: #0b0d10;
+    --color-surface: #111419;
+    --color-surface-subtle: #171b22;
+    --color-text-primary: #f2f4f7;
+    --color-text-secondary: #a5acb8;
+    --color-text-tertiary: #747d8c;
+    --color-border: rgba(242, 244, 247, .1);
+    --color-border-strong: rgba(242, 244, 247, .2);
+    --color-accent: #8ca8ff;
+    --color-accent-soft: #1b284f;
+    --color-danger: #ff8a80;
+    --color-success: #72d2a5;
+    --color-nav: rgba(11, 13, 16, .92);
+    --shadow-overlay: 0 1.25rem 3.5rem rgba(0, 0, 0, .36);
+}
+
+@media (min-width: 40rem) {
+    :root {
+        --layout-gutter: 2rem;
+        --section-space-start: var(--space-20);
+        --section-space-end: var(--space-24);
+        --nav-height: 4.5rem;
+    }
+}
+
+@media (min-width: 64rem) {
+    :root {
+        --layout-gutter: 3rem;
+        --section-space-start: var(--space-24);
+        --section-space-end: var(--space-28);
+    }
+}
+
+@media (min-width: 80rem) {
+    :root {
+        --layout-gutter: 4rem;
+    }
+}

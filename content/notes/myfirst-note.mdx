@@ -1,0 +1,120 @@
+---
+title: 我的第一篇笔记
+date: "2026-08-14"
+updated: "2026-08-14"
+category: Engineering
+tags: [MDX, Content]
+description: 用来理解个人主页的一些功能.
+draft: false
+---
+
+## Start 基本介绍
+
+这是一个基于 Next.js App Router 构建的静态个人网站框架，定位为 Personal Website / Digital Garden / Personal Archive。它把页面设计与个人内容分离：页面和组件保持稳定，后续主要通过新增 MDX 文件更新项目、笔记、生活记录和人生节点。
+Write notes as durable pieces of understanding rather than a stream of updates.
+
+## Structure 整体与目录架构
+
+- Use headings to make long notes scannable.
+- Add links between related ideas.
+- Keep code, images, and references close to the relevant explanation.
+- 全局视觉系统:CSS
+
+## 技术栈
+
+Note.js.
+网站开发：
+
+网站是整本书
+页面是书中的章节
+路由是章节的目录地址
+App Router 决定“哪个网址对应哪个页面文件”
+Next.js 是一个基于 React 的网站开发框架。App Router 是 Next.js 提供的一套路由和页面组织方式。
+在这个项目中，app 文件夹的目录结构基本对应网站地址：
+
+把开发网站比作盖房子：
+Next.js 是建筑体系
+React 是组件和房间的组合方式
+TypeScript 是施工规范
+CSS 是装修设计
+MDX 是内容材料
+GitHub Pages 是房子最终所在的位置
+
+
+Next.js
+负责网站整体结构，包括：
+页面组织
+路由
+静态页面生成
+SEO 信息
+网站构建
+它建立在 React 之上，适合开发多页面网站。
+
+React
+负责将网页拆分成可以复用的组件，例如：
+Navbar
+Footer
+ProjectCard
+NoteCard
+LifeCard
+ThemeToggle
+
+TypeScript
+TypeScript 是带有类型检查功能的 JavaScript。
+例如，我们规定一个项目必须包含：
+title
+description
+year
+tags
+如果某段代码把 year 当作其他不合适的数据使用，TypeScript 可以在构建网站时发现问题。
+它的主要作用是：
+减少代码错误
+明确数据结构
+提升代码可维护性
+方便后续扩展
+CSS
+CSS 负责网页的视觉表现，例如：
+颜色
+字体
+字号
+留白
+卡片布局
+手机端布局
+明暗主题
+Hover 动画
+
+MDX
+MDX 用于保存项目、笔记和生活记录等具体内容。
+它让网站内容和页面代码相互分离。以后增加文章时，主要添加 MDX 文件，不需要重新编写页面。
+GitHub Pages
+GitHub Pages 是 GitHub 提供的静态网站托管服务。
+项目构建后会生成 HTML、CSS 和 JavaScript 文件，然后发布到类似下面的地址：
+https://username.github.io/repository-name/
+
+
+
+.tsx 决定页面上有什么，.css 决定这些内容看起来怎么样。
+MDX  = 写什么
+TSX  = 如何组织和展示
+CSS  = 展示成什么样子
+
+| 概念 | 主要作用 |
+|---|---|
+| Next.js | 网站开发框架 |
+| App Router | 根据文件夹组织页面和网址 |
+| 路由 | 访问一个页面的网址规则 |
+| React | 将页面拆分成可复用组件 |
+| TypeScript | 检查代码和数据类型 |
+| `.tsx` | 页面与组件结构、交互和数据展示 |
+| `.css` | 颜色、字体、布局、主题和响应式设计 |
+| `.md` | 标准 Markdown 内容 |
+| `.mdx` | Markdown 加 React 组件能力 |
+| YAML Frontmatter | 内容的标题、日期、分类、标签等结构化信息 |
+| SEO | 帮助搜索引擎和分享平台理解页面 |
+| GitHub Pages | 托管构建后的静态网站 |
+
+
+## 后续工作
+
+后续工作主要是替换个人信息、加入真实图片和持续增加 MDX 内容。
+
