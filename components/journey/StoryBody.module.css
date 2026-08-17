@@ -1,0 +1,48 @@
+.figure {
+    margin-block: var(--space-12);
+}
+
+.body {
+    width: min(100%, var(--layout-reading));
+    margin-inline: auto;
+}
+
+.portrait {
+    width: min(100%, 30rem);
+    margin-inline: auto;
+}
+
+.wide {
+    width: min(calc(100vw - (var(--layout-gutter) * 2)), 60rem);
+    margin-inline: 50%;
+    transform: translateX(-50%);
+}
+
+.frame {
+    overflow: hidden;
+    border-radius: var(--radius-surface);
+    background: var(--color-surface-subtle);
+}
+
+.frame img {
+    width: 100%;
+    height: auto;
+}
+
+.caption {
+    margin-top: var(--space-3);
+    color: var(--color-text-tertiary);
+    font-family: var(--font-mono);
+    font-size: var(--text-meta);
+    line-height: var(--leading-meta);
+}
+
+@media (max-width: 47.999rem) {
+    .figure {
+        margin-block: var(--space-10);
+    }
+
+    .portrait {
+        width: min(100%, 24rem);
+    }
+}

@@ -1,9 +1,80 @@
 import type { Metadata } from "next";
-import { notFound } from "next/navigation";
-import { ArrowLeft, MapPin } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
-import { getAllContent, getContent } from "@/lib/content";
+import { notFound } from "next/navigation";
+import { ArrowLeft } from "lucide-react";
 import { ContentRenderer } from "@/components/ContentRenderer";
-export function generateStaticParams() { return getAllContent("life").map(({ slug }) => ({ slug })); }
-export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> { const item = getContent("life", (await params).slug); return { title: item?.title, description: item?.description, alternates: { canonical: `/life/${item?.slug}` } }; }
-export default async function LifeDetail({ params }: { params: Promise<{ slug: string }> }) { const item = getContent("life", (await params).slug); if (!item) notFound(); return <div className="container detail-page"><Link href="/life" className="back"><ArrowLeft size={15} /> Back to life</Link><header><span className="eyebrow"><MapPin size={13} /> {item.location} · {item.date}</span><h1>{item.title}</h1><p>{item.description}</p></header><div className="life-detail-hero"><div className="sun-orb" /><span>PHOTO / PLACEHOLDER</span></div><ContentRenderer source={item.body} /><div className="photo-grid"><div /><div /><div /></div></div>; }
+import { ChinaCityMap } from "@/components/life/ChinaCityMap";
+import { getAllContent, getContent } from "@/lib/content";
+import { withBasePath } from "@/lib/site";
+import styles from "./page.module.css";
+
+export const dynamicParams = false;
+
+export function generateStaticParams() {
+  return getAllContent("life").map(({ slug }) => ({ slug }));
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  const item = getContent("life", slug);
+
+  if (!item) return {};
+
+  return {
+    title: item.title,
+    description: item.description,
+    alternates: { canonical: `/life/${item.slug}` },
+  };
+}
+
+export default async function LifeDetail({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params;
+  const item = getContent("life", slug);
+
+  if (!item) notFound();
+
+  return (
+    <div className={`container ${styles.page}`}>
+      <nav className={styles.pageNav} aria-label="Life pages">
+        <Link href="/life" className={styles.backLink}>
+          <ArrowLeft size={15} aria-hidden="true" />
+          Life
+        </Link>
+      </nav>
+
+      <header className={styles.header}>
+        <p className={styles.kicker}>Life Collection</p>
+        <h1>{item.title}</h1>
+        {item.subtitle && <p className={styles.subtitle}>{item.subtitle}</p>}
+        <p className={styles.description}>{item.description}</p>
+      </header>
+
+      {item.slug === "places" ? (
+        <ChinaCityMap />
+      ) : item.cover && (
+        <figure className={styles.cover}>
+          <Image
+            src={withBasePath(item.cover)}
+            alt={item.coverAlt ?? `${item.title} 主题馆封面`}
+            fill
+            priority
+            sizes="(max-width: 768px) calc(100vw - 40px), 80rem"
+          />
+        </figure>
+      )}
+
+      <div className={styles.content}>
+        <ContentRenderer source={item.body} />
+      </div>
+    </div>
+  );
+}

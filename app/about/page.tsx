@@ -1,9 +1,10 @@
 import fs from "node:fs";
 import path from "node:path";
 import type { Metadata } from "next";
-import { ArrowDownToLine, ArrowUpRight } from "lucide-react";
-import { PageIntro, SectionHeader } from "@/components/ui";
+import { ArrowDownToLine } from "lucide-react";
 import { withBasePath } from "@/lib/site";
+import styles from "./page.module.css";
+import Image from "next/image";
 
 export const metadata: Metadata = {
   title: "About",
@@ -14,6 +15,11 @@ const resumeHref = withBasePath("/resume/xuyang-zhao-resume.pdf");
 const resumeExists = fs.existsSync(
   path.join(process.cwd(), "public", "resume", "xuyang-zhao-resume.pdf"),
 );
+
+const profileMetadata = [
+  { label: "Research", value: "多模态目标检测" },
+  { label: "Based in", value: "北京市" },
+];
 
 const education = [
   {
@@ -54,97 +60,103 @@ const education = [
 
 export default function AboutPage() {
   return (
-    <>
-      <PageIntro index="05" title="About">
-        赵旭阳 · Xuyang Zhao
-      </PageIntro>
-
+    <div className={styles.page}>
       <section
-        className="container about-editorial"
-        aria-labelledby="profile-title"
+        className={`container ${styles.hero}`}
+        aria-labelledby="about-title"
       >
-        <div className="about-statement">
-          <span>01 / Profile</span>
-          <blockquote>
-            Life is <em>True.</em>
-          </blockquote>
+        <div className={styles.heroGrid}>
+          <header className={styles.identity}>
+            <span className={styles.kicker}>About</span>
+            <h1 id="about-title">Xuyang Zhao</h1>
+            <p>多模态目标检测研究者</p>
+          </header>
+
+          <div className={styles.portrait}>
+            <Image
+              src={withBasePath("/images/xuyang-zhao.webp")}
+              alt="Xuyang Zhao"
+              fill
+              priority
+              sizes="(max-width: 768px) calc(100vw - 40px), (max-width: 1024px) 42vw, 32vw"
+              className={styles.portraitImage}
+            />
+          </div>
         </div>
 
-        <div className="about-profile-grid">
-          <div className="about-bio">
-            <span className="eyebrow">Xuyang Zhao</span>
-            <h2 id="profile-title">在多模态信息中，寻找更可靠的目标感知。</h2>
+        <div className={styles.profileGrid}>
+          <div className={styles.philosophy}>
+            <span className={styles.profileLabel}>Personal principle</span>
+            <blockquote>
+              Life is <em>True.</em>
+            </blockquote>
             <p>
-              我目前主要关注多模态目标检测，探索不同模态之间的互补关系，以及它们在复杂场景中提升目标检测能力的方式。
+              我关注多模态目标检测，研究不同模态如何在复杂场景中共同提升目标感知的可靠性。
             </p>
-            <div className="about-contact-links" aria-label="联系方式与简历">
-              <a href="mailto:18369588966@163.com">
-                Email <ArrowUpRight size={14} aria-hidden="true" />
-              </a>
-              <a href="tel:+8618369588966">
-                Phone <ArrowUpRight size={14} aria-hidden="true" />
-              </a>
-              {resumeExists ? (
-                <a href={resumeHref} download>
-                  Résumé <ArrowDownToLine size={14} aria-hidden="true" />
-                </a>
-              ) : (
-                <span title="将 PDF 上传至 public/resume/xuyang-zhao-resume.pdf">
-                  Résumé · 待上传
-                </span>
-              )}
-            </div>
           </div>
 
-          <dl className="about-meta">
-            <div>
-              <dt>Research</dt>
-              <dd>多模态目标检测</dd>
-            </div>
-            <div>
-              <dt>Based in</dt>
-              <dd>北京市</dd>
-            </div>
-            <div>
-              <dt>Phone</dt>
-              <dd>
-                <a href="tel:+8618369588966">183 6958 8966</a>
-              </dd>
-            </div>
-            <div>
-              <dt>Email</dt>
-              <dd>
-                <a href="mailto:18369588966@163.com">18369588966@163.com</a>
-              </dd>
-            </div>
-          </dl>
+          <div className={styles.metadata}>
+            <h2>Profile Metadata</h2>
+            <dl>
+              {profileMetadata.map((item) => (
+                <div key={item.label}>
+                  <dt>{item.label}</dt>
+                  <dd>{item.value}</dd>
+                </div>
+              ))}
+              <div>
+                <dt>Email</dt>
+                <dd>
+                  <a href="mailto:18369588966@163.com">18369588966@163.com</a>
+                </dd>
+              </div>
+              <div>
+                <dt>Phone</dt>
+                <dd>
+                  <a href="tel:+8618369588966">183 6958 8966</a>
+                </dd>
+              </div>
+              <div>
+                <dt>Resume</dt>
+                <dd>
+                  {resumeExists ? (
+                    <a className={styles.resumeLink} href={resumeHref} download>
+                      Download PDF
+                      <ArrowDownToLine size={14} aria-hidden="true" />
+                    </a>
+                  ) : (
+                    <span className={styles.unavailable}>PDF 待上传</span>
+                  )}
+                </dd>
+              </div>
+            </dl>
+          </div>
         </div>
       </section>
 
-      <section
-        className="about-education ruled-section"
-        aria-labelledby="education-title"
-      >
+      <section className={styles.education} aria-labelledby="education-title">
         <div className="container">
-          <SectionHeader eyebrow="02 / Background" title="Education" />
+          <header className={styles.sectionHeading}>
+            <h2 id="education-title">Education</h2>
+            <p>教育经历与核心课程</p>
+          </header>
 
-          <div className="education-list">
-            {education.map((item, index) => (
-              <article className="education-entry" key={item.school}>
-                <div className="education-index">
-                  <span>0{index + 1}</span>
-                  <small>{item.degreeEn}</small>
+          <div className={styles.educationList}>
+            {education.map((item) => (
+              <article className={styles.educationEntry} key={item.school}>
+                <div className={styles.degree}>
+                  <span>{item.degreeEn}</span>
+                  <small>{item.degree}</small>
                 </div>
-                <div className="education-content">
+                <div className={styles.educationContent}>
                   <header>
                     <div>
                       <h3>{item.school}</h3>
                       <p>{item.schoolEn}</p>
                     </div>
-                    <span>{item.degree}</span>
                   </header>
-                  <p className="education-program">{item.department}</p>
-                  <div className="education-course-line">
+                  <p className={styles.program}>{item.department}</p>
+                  <div className={styles.courses}>
                     <span>主要课程</span>
                     <p>{item.courses.join("、")}</p>
                   </div>
@@ -154,6 +166,6 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
-    </>
+    </div>
   );
 }
