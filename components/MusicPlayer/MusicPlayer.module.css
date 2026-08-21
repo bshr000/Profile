@@ -1,0 +1,111 @@
+.root {
+  display: flex;
+  align-items: center;
+}
+
+.button {
+  min-width: 5.25rem;
+  height: 2.25rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .4rem;
+  padding-inline: .65rem;
+  border: var(--border-default);
+  border-radius: var(--radius-control);
+  background: transparent;
+  color: var(--color-text-secondary);
+  font-size: .75rem;
+  font-weight: var(--font-weight-medium);
+  line-height: 1;
+  white-space: nowrap;
+  transition:
+    color var(--duration-fast) var(--ease-standard),
+    border-color var(--duration-fast) var(--ease-standard),
+    background-color var(--duration-fast) var(--ease-standard);
+}
+
+.button:hover {
+  border-color: var(--color-border-strong);
+  color: var(--color-text-primary);
+}
+
+.button[aria-pressed="true"] {
+  border-color: color-mix(in srgb, var(--color-accent) 34%, var(--color-border));
+  background: color-mix(in srgb, var(--color-accent) 7%, transparent);
+  color: var(--color-accent);
+}
+
+.button[data-state="error"] {
+  color: var(--color-text-tertiary);
+}
+
+.icon,
+.label {
+  transition:
+    opacity var(--duration-fast) var(--ease-standard),
+    transform var(--duration-fast) var(--ease-standard);
+}
+
+.button[data-state="loading"] .icon {
+  opacity: .55;
+}
+
+.button[data-state="loading"] .label {
+  opacity: .62;
+}
+
+.button[aria-pressed="true"] .icon {
+  animation: playingPulse 1.8s ease-in-out infinite;
+}
+
+.button[aria-pressed="true"] .label {
+  transform: translateY(-.025rem);
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@keyframes playingPulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.08);
+  }
+}
+
+@media (max-width: 24rem) {
+  .button {
+    min-width: 2.25rem;
+    width: 2.25rem;
+    padding: 0;
+  }
+
+  .label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .icon,
+  .label,
+  .button[aria-pressed="true"] .icon {
+    animation: none;
+    transition: none;
+  }
+}

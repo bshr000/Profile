@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
+import { BadMo } from "@/components/BadMo";
+import { BadMoClickEffect } from "@/components/BadMoClickEffect";
 import { siteConfig } from "@/lib/site";
 import "./globals.css";
 
@@ -40,6 +42,8 @@ export const metadata: Metadata = {
 const themeScript = `try{const t=localStorage.getItem('theme');document.documentElement.dataset.theme=t||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light')}catch(e){}`;
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+  const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+
   return (
     <html
       lang="zh-CN"
@@ -54,9 +58,13 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <a className="skip-link" href="#main-content">
           跳至主要内容
         </a>
-        <Navbar />
+        <Navbar musicSrc={`${basePath}/music/badmo-theme.mp3`} />
         <main id="main-content">{children}</main>
         <Footer />
+        <BadMo
+          spriteSrc={`${basePath}/images/badmo/spritesheet.webp`}
+        />
+        <BadMoClickEffect />
       </body>
     </html>
   );

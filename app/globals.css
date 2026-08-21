@@ -33,15 +33,17 @@
 }
 
 .wordmark {
-    font-family: var(--serif);
-    font-size: 20px;
-    font-weight: 700;
-    letter-spacing: -.05em
+    font-family: "Caveat", "Dancing Script", cursive;
+    font-size: 22px;
+    font-weight: 500;
+    letter-spacing: -.02em
 }
-
-.wordmark span {
-    color: var(--accent)
-}
+/* .wordmark {
+  font-family: "Caveat", "Dancing Script", cursive;
+  font-size: 32px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+} */
 
 .nav-links {
     display: flex;

@@ -1,0 +1,120 @@
+.root {
+  position: absolute;
+  inset: 0 0 auto;
+  z-index: -1;
+  height: min(58rem, 100dvh);
+  overflow: hidden;
+  pointer-events: none;
+  opacity: .7;
+  mask-image: linear-gradient(to bottom, #000 0%, #000 70%, transparent 100%);
+}
+
+.wash {
+  position: absolute;
+  display: block;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  opacity: .52;
+  will-change: transform;
+}
+
+.washPrimary {
+  top: -30%;
+  left: -14%;
+  width: min(70vw, 56rem);
+  background: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--color-accent) 15%, transparent) 0%,
+    color-mix(in srgb, var(--color-accent) 5%, transparent) 44%,
+    transparent 72%
+  );
+  animation: driftPrimary 24s ease-in-out infinite alternate;
+}
+
+.washSecondary {
+  top: -15%;
+  right: -22%;
+  width: min(66vw, 50rem);
+  background: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--color-accent-soft) 52%, transparent) 0%,
+    color-mix(in srgb, var(--color-accent) 4%, transparent) 50%,
+    transparent 73%
+  );
+  animation: driftSecondary 28s ease-in-out infinite alternate;
+}
+
+.washNeutral {
+  top: 31%;
+  left: 34%;
+  width: min(48vw, 38rem);
+  background: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--color-text-tertiary) 9%, transparent) 0%,
+    transparent 70%
+  );
+  animation: driftNeutral 20s ease-in-out infinite alternate;
+}
+
+@keyframes driftPrimary {
+  from {
+    transform: translate3d(-3%, -2%, 0) scale(1);
+  }
+  to {
+    transform: translate3d(10%, 8%, 0) scale(1.08);
+  }
+}
+
+@keyframes driftSecondary {
+  from {
+    transform: translate3d(4%, -3%, 0) scale(.96);
+  }
+  to {
+    transform: translate3d(-11%, 10%, 0) scale(1.06);
+  }
+}
+
+@keyframes driftNeutral {
+  from {
+    transform: translate3d(-8%, 5%, 0) scale(1.04);
+  }
+  to {
+    transform: translate3d(9%, -7%, 0) scale(.94);
+  }
+}
+
+@media (max-width: 47.999rem) {
+  .root {
+    height: min(48rem, 100dvh);
+    opacity: .5;
+  }
+
+  .washPrimary,
+  .washSecondary {
+    width: 38rem;
+  }
+
+  .washNeutral {
+    left: 12%;
+    width: 30rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wash {
+    animation: none;
+    will-change: auto;
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .root {
+    opacity: .32;
+  }
+}
+
+@media print {
+  .root {
+    display: none;
+  }
+}

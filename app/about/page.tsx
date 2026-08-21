@@ -1,7 +1,29 @@
 import fs from "node:fs";
 import path from "node:path";
 import type { Metadata } from "next";
+import type { CSSProperties } from "react";
 import { ArrowDownToLine } from "lucide-react";
+import type { IconType } from "react-icons";
+import { BsOpenai } from "react-icons/bs";
+import { DiPhotoshop } from "react-icons/di";
+import { PiMicrosoftPowerpointLogoFill } from "react-icons/pi";
+import {
+  SiClaude,
+  SiCss,
+  SiDocker,
+  SiGithub,
+  SiHuggingface,
+  SiHtml5,
+  SiLatex,
+  SiLinux,
+  SiNextdotjs,
+  SiOpencv,
+  SiPycharm,
+  SiPython,
+  SiPytorch,
+  SiQgis,
+} from "react-icons/si";
+import { VscVscode } from "react-icons/vsc";
 import { withBasePath } from "@/lib/site";
 import styles from "./page.module.css";
 import Image from "next/image";
@@ -36,6 +58,7 @@ const education = [
       "遥感影像处理",
       "光纤通信新技术",
     ],
+    rewards: ["三好学生", "三好学生", "三好学生标兵"],
   },
   {
     school: "中国地质大学（北京）",
@@ -55,7 +78,55 @@ const education = [
       "线性代数",
       "电子电工技术",
     ],
+    rewards: [
+      "优秀班干部",
+      "三好学生",
+      "优秀毕业生",
+      "优秀毕业论文",
+      "全国大学生英语竞赛三等奖",
+      "全国大学生数学建模竞赛省一等奖",
+    ],
   },
+];
+
+type Skill =
+  | { name: string; color: string; icon: IconType; mark?: never }
+  | { name: string; color: string; icon?: never; mark: string };
+
+const skills: Skill[] = [
+  { name: "Python", color: "#3776ab", icon: SiPython },
+  { name: "PyTorch", color: "#ee4c2c", icon: SiPytorch },
+  { name: "VS Code", color: "#007acc", icon: VscVscode },
+  { name: "PyCharm", color: "#21d789", icon: SiPycharm },
+  { name: "MATLAB", color: "#e16737", mark: "M" },
+  { name: "Linux", color: "#f2c94c", icon: SiLinux },
+  { name: "Photoshop", color: "#31a8ff", icon: DiPhotoshop },
+  { name: "剪映", color: "var(--color-text-primary)", mark: "剪" },
+  {
+    name: "GitHub",
+    color: "var(--color-text-primary)",
+    icon: SiGithub,
+  },
+  { name: "Docker", color: "#2496ed", icon: SiDocker },
+  { name: "WPS", color: "#d12f2f", mark: "WPS" },
+  {
+    name: "PowerPoint",
+    color: "#d24726",
+    icon: PiMicrosoftPowerpointLogoFill,
+  },
+  { name: "ChatGPT", color: "#10a37f", icon: BsOpenai },
+  { name: "Claude", color: "#d97757", icon: SiClaude },
+  {
+    name: "Next.js",
+    color: "var(--color-text-primary)",
+    icon: SiNextdotjs,
+  },
+  { name: "OpenCV", color: "#5c3ee8", icon: SiOpencv },
+  { name: "Hugging Face", color: "#e3ad00", icon: SiHuggingface },
+  { name: "HTML", color: "#e34f26", icon: SiHtml5 },
+  { name: "CSS", color: "#1572b6", icon: SiCss },
+  { name: "LaTeX", color: "#008080", icon: SiLatex },
+  { name: "QGIS", color: "#589632", icon: SiQgis },
 ];
 
 export default function AboutPage() {
@@ -67,9 +138,13 @@ export default function AboutPage() {
       >
         <div className={styles.heroGrid}>
           <header className={styles.identity}>
-            <span className={styles.kicker}>About</span>
             <h1 id="about-title">Xuyang Zhao</h1>
-            <p>多模态目标检测研究者</p>
+            <p>研究方向：多模态目标检测</p>
+            <p>中共党员</p>
+            <p>电子信息硕士</p>
+            <p>山东临沂</p>
+            <p>Skills：</p>
+            <p>爱好：爬山、篮球 </p>
           </header>
 
           <div className={styles.portrait}>
@@ -90,9 +165,7 @@ export default function AboutPage() {
             <blockquote>
               Life is <em>True.</em>
             </blockquote>
-            <p>
-              我关注多模态目标检测，研究不同模态如何在复杂场景中共同提升目标感知的可靠性。
-            </p>
+            <p> </p>
           </div>
 
           <div className={styles.metadata}>
@@ -138,7 +211,7 @@ export default function AboutPage() {
         <div className="container">
           <header className={styles.sectionHeading}>
             <h2 id="education-title">Education</h2>
-            <p>教育经历与核心课程</p>
+            <p>教育经历</p>
           </header>
 
           <div className={styles.educationList}>
@@ -160,10 +233,47 @@ export default function AboutPage() {
                     <span>主要课程</span>
                     <p>{item.courses.join("、")}</p>
                   </div>
+                  <div className={styles.rewards}>
+                    <span> 荣誉奖励 </span>
+                    <p>{item.rewards.join("、")}</p>
+                  </div>
                 </div>
               </article>
             ))}
           </div>
+        </div>
+      </section>
+
+      <section className={styles.education} aria-labelledby="skills-title">
+        <div className="container">
+          <header className={styles.sectionHeading}>
+            <h2 id="skills-title">Skills</h2>
+            <p>技能</p>
+          </header>
+
+          <ul className={styles.skillsGrid}>
+            {skills.map((skill) => {
+              const Icon = skill.icon;
+
+              return (
+                <li
+                  className={styles.skillCard}
+                  key={skill.name}
+                  style={{ "--skill-color": skill.color } as CSSProperties}
+                  title={skill.name}
+                >
+                  <span className={styles.skillIcon} aria-hidden="true">
+                    {Icon ? (
+                      <Icon />
+                    ) : (
+                      <span className={styles.skillMark}>{skill.mark}</span>
+                    )}
+                  </span>
+                  <span className={styles.skillName}>{skill.name}</span>
+                </li>
+              );
+            })}
+          </ul>
         </div>
       </section>
     </div>

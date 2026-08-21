@@ -1,0 +1,126 @@
+.layer {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-overlay);
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.effect {
+  position: absolute;
+  top: var(--paw-y);
+  left: var(--paw-x);
+  width: 1.45rem;
+  height: 1.55rem;
+  color: color-mix(
+    in srgb,
+    var(--color-accent) 34%,
+    var(--color-text-tertiary)
+  );
+  opacity: 0;
+  transform: translate(-50%, -50%) rotate(var(--paw-rotation));
+  animation: pawAppear var(--paw-duration) var(--ease-standard) forwards;
+}
+
+.paw,
+.imageMark {
+  display: block;
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.imageMark {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.pad,
+.toe {
+  position: absolute;
+  display: block;
+  background: currentColor;
+}
+
+.pad {
+  left: 23%;
+  bottom: 8%;
+  width: 56%;
+  height: 50%;
+  border-radius: 54% 54% 48% 48%;
+  transform: rotate(-1deg);
+}
+
+.toe {
+  width: 22%;
+  height: 27%;
+  border-radius: 55%;
+}
+
+.toeOne {
+  top: 22%;
+  left: 2%;
+  transform: rotate(-28deg);
+}
+
+.toeTwo {
+  top: 3%;
+  left: 25%;
+  transform: rotate(-10deg);
+}
+
+.toeThree {
+  top: 2%;
+  right: 25%;
+  transform: rotate(10deg);
+}
+
+.toeFour {
+  top: 22%;
+  right: 2%;
+  transform: rotate(28deg);
+}
+
+@keyframes pawAppear {
+  0% {
+    opacity: 0;
+    transform:
+      translate(-50%, -50%)
+      rotate(var(--paw-rotation))
+      scale(calc(var(--paw-scale) * .72));
+  }
+  24% {
+    opacity: .58;
+    transform:
+      translate(-50%, -50%)
+      rotate(var(--paw-rotation))
+      scale(calc(var(--paw-scale) * 1.04));
+  }
+  58% {
+    opacity: .46;
+    transform:
+      translate(-50%, -50%)
+      rotate(var(--paw-rotation))
+      scale(var(--paw-scale));
+  }
+  100% {
+    opacity: 0;
+    transform:
+      translate(-50%, -50%)
+      rotate(var(--paw-rotation))
+      scale(calc(var(--paw-scale) * .84));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .effect {
+    animation-duration: 180ms;
+  }
+}
+
+@media print {
+  .layer {
+    display: none;
+  }
+}
